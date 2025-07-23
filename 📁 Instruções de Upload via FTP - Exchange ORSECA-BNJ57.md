@@ -5,7 +5,7 @@
 Este documento fornece instruções detalhadas para fazer o upload do frontend da Exchange ORSECA-BNJ57 para o servidor `apx.oneverso.com.br` usando as credenciais FTP fornecidas. É importante compreender que esta implantação cobre apenas a interface do usuário (frontend), enquanto o backend completo requer um ambiente de servidor mais robusto.
 
 ## ``
-     - Password: `Benajmin2020*`
+     - 
 
 3. **Conectar ao Servidor**
    - Clique em "Connect"
@@ -45,16 +45,7 @@ Este documento fornece instruções detalhadas para fazer o upload do frontend d
 # Conectar via FTP
 ftp ftp.oneverso.com.br
 
-# Fazer login quando solicitado
-# User: lucasapxbnj57@apx.oneverso.com.br
-# Password: Benajmin2020*
-
-# Navegar para diretório público
-cd public_html
-
-# Fazer upload dos arquivos
-put index.html
-put favicon.ico
+# 
 mkdir assets
 cd assets
 put assets/index-BEF8SoPl.css

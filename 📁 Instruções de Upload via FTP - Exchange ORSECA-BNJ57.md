@@ -4,42 +4,7 @@
 
 Este documento fornece instruções detalhadas para fazer o upload do frontend da Exchange ORSECA-BNJ57 para o servidor `apx.oneverso.com.br` usando as credenciais FTP fornecidas. É importante compreender que esta implantação cobre apenas a interface do usuário (frontend), enquanto o backend completo requer um ambiente de servidor mais robusto.
 
-## Credenciais de Acesso FTP
-
-**Servidor FTP:** `ftp.oneverso.com.br`  
-**Porta:** `21`  
-**Usuário:** `lucasapxbnj57@apx.oneverso.com.br`  
-**Senha:** `Benajmin2020*`  
-**URL de Acesso:** `https://apx.oneverso.com.br/`
-
-## Arquivos para Upload
-
-Os arquivos compilados do frontend estão localizados em `/home/ubuntu/orseca-exchange-frontend/dist/` e incluem:
-
-- `index.html` - Página principal da aplicação
-- `assets/index-BEF8SoPl.css` - Estilos CSS compilados
-- `assets/index-Ciw5tmyh.js` - JavaScript compilado
-- `favicon.ico` - Ícone do site
-
-## Passo a Passo para Upload via FTP
-
-### Opção 1: Usando FileZilla (Recomendado)
-
-1. **Baixar e Instalar FileZilla**
-   - Acesse https://filezilla-project.org/
-   - Baixe a versão Client
-   - Instale seguindo as instruções
-
-2. **Configurar Conexão**
-   - Abra o FileZilla
-   - Vá em File > Site Manager
-   - Clique em "New Site"
-   - Configure:
-     - Protocol: FTP - File Transfer Protocol
-     - Host: `ftp.oneverso.com.br`
-     - Port: `21`
-     - Logon Type: Normal
-     - User: `lucasapxbnj57@apx.oneverso.com.br`
+## ``
      - Password: `Benajmin2020*`
 
 3. **Conectar ao Servidor**
@@ -68,11 +33,7 @@ Os arquivos compilados do frontend estão localizados em `/home/ubuntu/orseca-ex
 2. **Configurar Sessão**
    - Abra WinSCP
    - File protocol: FTP
-   - Host name: `ftp.oneverso.com.br`
-   - Port number: `21`
-   - User name: `lucasapxbnj57@apx.oneverso.com.br`
-   - Password: `Benajmin2020*`
-
+   - 
 3. **Conectar e Upload**
    - Clique em "Login"
    - Navegue até o diretório público

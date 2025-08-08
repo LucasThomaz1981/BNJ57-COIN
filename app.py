@@ -11,6 +11,9 @@ from flask_jwt_extended import JWTManager
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 import structlog
+import uuid
+from datetime import datetime
+from exchange import db as exchange_db
 
 # Configuração de logging estruturado
 structlog.configure(
@@ -33,6 +36,12 @@ structlog.configure(
 
 logger = structlog.get_logger()
 
+def _parse_allowed_origins(origins_str: str):
+    if not origins_str or origins_str.strip() == '*':
+        return '*'
+    # Split by comma and strip spaces
+    return [o.strip() for o in origins_str.split(',') if o.strip()]
+
 def create_app(config_name='development'):
     """Factory function para criar a aplicação Flask"""
     app = Flask(__name__)
@@ -47,14 +56,18 @@ def create_app(config_name='development'):
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['REDIS_URL'] = os.environ.get('REDIS_URL', 'redis://localhost:6379/0')
     
+    # ORM
+    exchange_db.init_app(app)
+    
     # Extensões
-    CORS(app, origins="*")  # Permitir CORS para desenvolvimento
+    allowed_origins = _parse_allowed_origins(os.environ.get('ALLOWED_ORIGINS', '*'))
+    CORS(app, origins=allowed_origins)
     jwt = JWTManager(app)
     
     # Rate limiting
     limiter = Limiter(
-        app,
-        key_func=get_remote_address,
+        get_remote_address,
+        app=app,
         default_limits=["1000 per hour"]
     )
     
@@ -73,7 +86,7 @@ def create_app(config_name='development'):
         """Endpoint detalhado de health check"""
         return jsonify({
             'status': 'healthy',
-            'timestamp': '2025-07-22T20:00:00Z',
+            'timestamp': datetime.utcnow().isoformat() + 'Z',
             'services': {
                 'database': 'connected',
                 'redis': 'connected',
@@ -117,14 +130,14 @@ def create_app(config_name='development'):
                    wallet_address=wallet_address, 
                    description=description)
         
-        # Simulação de criação de claim
-        claim_id = f"claim_{hash(wallet_address) % 10000}"
+        # Identificador seguro e único para a claim
+        claim_id = f"claim_{uuid.uuid4().hex}"
         
         return jsonify({
             'claim_id': claim_id,
             'wallet_address': wallet_address,
             'status': 'pending',
-            'created_at': '2025-07-22T20:00:00Z',
+            'created_at': datetime.utcnow().isoformat() + 'Z',
             'estimated_completion': '2025-08-22T20:00:00Z'
         }), 201
     
@@ -199,5 +212,5 @@ def create_app(config_name='development'):
 if __name__ == '__main__':
     app = create_app()
     # Escutar em 0.0.0.0 para permitir acesso externo
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=(os.environ.get('FLASK_DEBUG', '0') == '1'))
 

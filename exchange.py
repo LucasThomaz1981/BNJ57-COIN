@@ -1,7 +1,10 @@
-from src.models.user import db
 from datetime import datetime
 from enum import Enum
 import uuid
+from flask_sqlalchemy import SQLAlchemy
+
+# Local SQLAlchemy instance
+db = SQLAlchemy()
 
 class ORSECALevel(Enum):
     ASPIRANTE = "aspirante"  # Sementes

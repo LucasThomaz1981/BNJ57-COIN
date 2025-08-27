@@ -16,4 +16,4 @@ marshmallow==3.20.1
 gunicorn==21.2.0
 prometheus-client==0.17.1
 structlog==23.1.0
-
+eth_typing==2.3.0
